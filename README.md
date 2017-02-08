@@ -6,11 +6,11 @@ author: selvasingh
 
 #Getting Started with Compute - Create Virtual Machines In Parallel - in .Net #
 
-      Azure compute sample for creating multiple virtual machines in parallel.
-       - Define 1 virtual network per region
-       - Define 1 storage account per region
-       - Create 5 virtual machines in 2 regions using defined virtual network and storage account
-       - Create a traffic manager to route traffic across the virtual machines
+          Azure compute sample for creating multiple virtual machines in parallel.
+           - Define 1 virtual network per region
+           - Define 1 storage account per region
+           - Create 5 virtual machines in 2 regions using defined virtual network and storage account
+           - Create a traffic manager to route traffic across the virtual machines
 
 
 ## Running this Sample ##
