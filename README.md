@@ -4,7 +4,7 @@ platforms: .Net
 author: selvasingh
 ---
 
-#Getting Started with Compute - Create Virtual Machines In Parallel - in .Net #
+# Getting Started with Compute - Create Virtual Machines In Parallel - in .Net #
 
           Azure compute sample for creating multiple virtual machines in parallel.
            - Define 1 virtual network per region
