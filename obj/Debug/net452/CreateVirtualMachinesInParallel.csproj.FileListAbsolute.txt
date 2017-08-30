@@ -1,0 +1,4 @@
+C:\Sources\dotnet-samples\compute-dotnet-create-virtual-machines-across-regions-in-parallel\bin\Debug\net452\CreateVirtualMachinesInParallel.runtimeconfig.json
+C:\Sources\dotnet-samples\compute-dotnet-create-virtual-machines-across-regions-in-parallel\bin\Debug\net452\CreateVirtualMachinesInParallel.runtimeconfig.dev.json
+C:\Sources\dotnet-samples\compute-dotnet-create-virtual-machines-across-regions-in-parallel\obj\Debug\net452\CreateVirtualMachinesInParallel.csproj.CreateVirtualMachinesInParallel.exe.config
+C:\Sources\dotnet-samples\compute-dotnet-create-virtual-machines-across-regions-in-parallel\obj\Debug\net452\CreateVirtualMachinesInParallel.csproj.CoreCompileInputs.cache
