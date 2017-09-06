@@ -1,2 +1,0 @@
-C:\Sources\dotnet-samples\compute-dotnet-create-virtual-machines-across-regions-in-parallel\bin\Debug\netstandard1.6\CreateVirtualMachinesInParallel.deps.json
-C:\Sources\dotnet-samples\compute-dotnet-create-virtual-machines-across-regions-in-parallel\obj\Debug\netstandard1.6\CreateVirtualMachinesInParallel.csproj.CoreCompileInputs.cache
