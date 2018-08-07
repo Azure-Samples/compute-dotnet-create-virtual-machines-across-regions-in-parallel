@@ -1,10 +1,10 @@
 ---
 services: Compute
-platforms: .Net
+platforms: dotnet
 author: selvasingh
 ---
 
-# Getting Started with Compute - Create Virtual Machines In Parallel - in .Net #
+# Getting started on creating several virtual machines across regions in parallel in C# #
 
           Azure compute sample for creating multiple virtual machines in parallel.
            - Define 1 virtual network per region
@@ -17,7 +17,7 @@ author: selvasingh
 
 To run this sample:
 
-Set the environment variable `AZURE_AUTH_LOCATION` with the full path for an auth file. See [how to create an auth file](https://github.com/Azure/azure-sdk-for-net/blob/Fluent/AUTH.md).
+Set the environment variable `AZURE_AUTH_LOCATION` with the full path for an auth file. See [how to create an auth file](https://github.com/Azure/azure-libraries-for-java/blob/master/AUTH.md).
 
     git clone https://github.com/Azure-Samples/compute-dotnet-create-virtual-machines-across-regions-in-parallel.git
 
