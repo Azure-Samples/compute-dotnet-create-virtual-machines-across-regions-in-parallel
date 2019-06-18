@@ -22,10 +22,10 @@ Set the environment variable `AZURE_AUTH_LOCATION` with the full path for an aut
     git clone https://github.com/Azure-Samples/compute-dotnet-create-virtual-machines-across-regions-in-parallel.git
 
     cd compute-dotnet-create-virtual-machines-across-regions-in-parallel
-
-    dotnet restore
-
-    dotnet run
+  
+    dotnet build
+    
+    bin\Debug\net452\CreateVirtualMachinesInParallel.exe
 
 ## More information ##
 
