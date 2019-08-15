@@ -4,18 +4,18 @@ languages:
 - csharp
 products:
 - azure
-services: Compute
-platforms: dotnet
-author: yaohaizh
+extensions:
+- services: Compute
+- platforms: dotnet
 ---
 
 # Getting started on creating several virtual machines across regions in parallel in C# #
 
-          Azure compute sample for creating multiple virtual machines in parallel.
-           - Define 1 virtual network per region
-           - Define 1 storage account per region
-           - Create 5 virtual machines in 2 regions using defined virtual network and storage account
-           - Create a traffic manager to route traffic across the virtual machines
+ Azure compute sample for creating multiple virtual machines in parallel.
+  - Define 1 virtual network per region
+  - Define 1 storage account per region
+  - Create 5 virtual machines in 2 regions using defined virtual network and storage account
+  - Create a traffic manager to route traffic across the virtual machines
 
 
 ## Running this Sample ##
