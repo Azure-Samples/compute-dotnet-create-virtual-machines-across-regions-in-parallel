@@ -7,6 +7,7 @@ products:
 extensions:
 - services: Compute
 - platforms: dotnet
+description: "Azure compute sample for creating multiple virtual machines in parallel."
 ---
 
 # Getting started on creating several virtual machines across regions in parallel in C# #
