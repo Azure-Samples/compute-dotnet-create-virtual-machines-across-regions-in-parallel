@@ -3,6 +3,7 @@ page_type: sample
 languages:
 - csharp
 products:
+- dotnet
 - azure
 extensions:
 - services: Compute
