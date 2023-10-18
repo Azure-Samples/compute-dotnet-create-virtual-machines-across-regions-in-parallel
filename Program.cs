@@ -29,7 +29,7 @@ namespace CreateVirtualMachinesInParallel
          *  - Create 5 virtual machines in 2 regions using defined virtual network and storage account
          *  - Create a traffic manager to route traffic across the virtual machines
          */
-        public static async Task RunSample(ArmClient client)
+        public static async Task RunSampleAsync(ArmClient client)
         {
             string rgName = Utilities.CreateRandomName("rgCOMV");
             var networkName = Utilities.CreateRandomName("vnetCOPD-");
@@ -40,13 +40,13 @@ namespace CreateVirtualMachinesInParallel
 
             virtualMachinesByLocation.Add(AzureLocation.EastUS, 5);
             virtualMachinesByLocation.Add(AzureLocation.SouthCentralUS, 5);
+            var lro = await client.GetDefaultSubscription().GetResourceGroups().CreateOrUpdateAsync(Azure.WaitUntil.Completed, rgName, new ResourceGroupData(AzureLocation.EastUS));
+            var resourceGroup = lro.Value;
             try
             {
                 //=============================================================
                 // Create a resource group (Where all resources gets created)
                 //
-                var lro = await client.GetDefaultSubscription().GetResourceGroups().CreateOrUpdateAsync(Azure.WaitUntil.Completed, rgName, new ResourceGroupData(AzureLocation.EastUS));
-                var resourceGroup = lro.Value;
                 var virtualMachineCollection = resourceGroup.GetVirtualMachines();
                 var publicIpAddressCollection = resourceGroup.GetPublicIPAddresses();
 
@@ -244,26 +244,15 @@ namespace CreateVirtualMachinesInParallel
                 foreach (var publicIpResourceId in publicIpResourceIds)
                 {
                     var endpointName = $"azendpoint-{endpointPriority}";
-                    if (endpointPriority == 1)
-                    {
                         var data = new TrafficManagerEndpointData()
                         {
                             TargetResourceId = new ResourceIdentifier(publicIpResourceId),
                             Priority = endpointPriority
                         };
                         var endpoint = (await endpointCollection.CreateOrUpdateAsync(WaitUntil.Completed, "Microsoft.network/TrafficManagerProfiles/ExternalEndpoints", endpointName, data)).Value;
-                    }
-                    else
-                    {
-                        profileWithCreate = profileWithCreate.DefineAzureTargetEndpoint(endpointName)
-                                .ToResourceId(publicIpResourceId)
-                                .WithRoutingPriority(endpointPriority)
-                                .Attach();
-                    }
                     endpointPriority++;
                 }
 
-                var trafficManagerProfile = profileWithCreate.Create();
                 Utilities.Log("Created a traffic manager profile - " + trafficManagerProfile.Id);
             }
             finally
@@ -271,7 +260,7 @@ namespace CreateVirtualMachinesInParallel
                 try
                 {
                     Utilities.Log("Deleting Resource Group: " + rgName);
-                    azure.ResourceGroups.DeleteByName(rgName);
+                    await resourceGroup.DeleteAsync(WaitUntil.Completed);
                     Utilities.Log("Deleted Resource Group: " + rgName);
                 }
                 catch (Exception)
@@ -281,25 +270,24 @@ namespace CreateVirtualMachinesInParallel
             }
         }
 
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
 
             try
             {
                 //=================================================================
                 // Authenticate
-                var credentials = SdkContext.AzureCredentialsFactory.FromFile(Environment.GetEnvironmentVariable("AZURE_AUTH_LOCATION"));
-
-                var azure = Azure
-                    .Configure()
-                    .WithLogLevel(HttpLoggingDelegatingHandler.Level.Basic)
-                    .Authenticate(credentials)
-                    .WithDefaultSubscription();
+                var clientId = Environment.GetEnvironmentVariable("CLIENT_ID");
+                var clientSecret = Environment.GetEnvironmentVariable("CLIENT_SECRET");
+                var tenantId = Environment.GetEnvironmentVariable("TENANT_ID");
+                var subscription = Environment.GetEnvironmentVariable("SUBSCRIPTION_ID");
+                ClientSecretCredential credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+                ArmClient client = new ArmClient(credential, subscription);
 
                 // Print selected subscription
-                Utilities.Log("Selected subscription: " + azure.SubscriptionId);
+                Utilities.Log("Selected subscription: " + client.GetSubscriptions().Id);
 
-                RunSample(azure);
+                await RunSampleAsync(client);
             }
             catch (Exception e)
             {
