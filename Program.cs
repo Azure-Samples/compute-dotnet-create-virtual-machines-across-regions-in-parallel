@@ -84,7 +84,7 @@ namespace CreateVirtualMachinesInParallel
                     var storageAccountData = new StorageAccountCreateOrUpdateContent(new StorageSku(storageAccountSkuName), StorageKind.Storage, region);
                     {
                     };
-                    var storageAccountCreatable = await storageAccountCollection.CreateOrUpdateAsync(WaitUntil.Completed, storageAccountName, storageAccountData);
+                    var storageAccountCreatable = (await storageAccountCollection.CreateOrUpdateAsync(WaitUntil.Completed, storageAccountName, storageAccountData)).Value;
 
                     var linuxVMNamePrefix = Utilities.CreateRandomName("vm-");
                     for (int i = 1; i <= vmCount; i++)
@@ -197,6 +197,10 @@ namespace CreateVirtualMachinesInParallel
                     {
                         "1"
                     },
+                            BootDiagnostics = new BootDiagnostics()
+                            {
+                                StorageUri = new Uri($"http://{storageAccountCreatable.Data.Name}.blob.core.windows.net")
+                            }
                         };
                         var virtualMachine1Lro = await virtualMachineCollection.CreateOrUpdateAsync(WaitUntil.Completed, $"{linuxVMNamePrefix}-{i}", linuxVmdata);
                         var virtualMachineCreatable = virtualMachine1Lro.Value;
